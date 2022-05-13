@@ -1,7 +1,10 @@
+/* TTRSS-Heti Starts */
+
 @import url('/plugins.local/heti/heti/heti.min.css');
 
-.content {
+.heti {
     display: block;
     margin-left: auto;
     margin-right: auto;
 }
+/* TTRSS-Heti Ends */
