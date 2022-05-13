@@ -1,0 +1,7 @@
+@import url('/plugins.local/heti/heti/heti.min.css');
+
+.content {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
