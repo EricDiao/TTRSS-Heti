@@ -21,7 +21,15 @@ require([
         contents = document.getElementsByClassName('content');
         for (let i = 0; i < contents.length; i++) {
             contents[i].classList.add('heti');
+            contents[i].style.cssText = "display: block; margin-left: auto; margin-right: auto;" + contents[i].style.cssText;
         }
+
+        notes = document.getElementsByClassName('article-note');
+        for (let i = 0; i < notes.length; i++) {
+            notes[i].classList.add('heti');
+            notes[i].style.cssText = "display: block; margin-left: auto; margin-right: auto;" + notes[i].style.cssText;
+        }
+
 
         if (contents.length > 0) {
             if (heti) {
