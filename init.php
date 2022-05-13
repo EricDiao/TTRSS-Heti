@@ -13,6 +13,7 @@ class heti extends Plugin {
 
 	function get_js() {
 		$js = file_get_contents(dirname(__FILE__) . "/js/init.js");
+		// $heti = file_get_contents(dirname(__FILE__) . "/heti/heti-addon.min.js");
 		return $js;
 	}
 
