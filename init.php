@@ -15,7 +15,6 @@ class heti extends Plugin {
 
 	function get_js() {
 		$js = file_get_contents(dirname(__FILE__) . "/js/init.js");
-		// $heti = file_get_contents(dirname(__FILE__) . "/heti/heti-addon.min.js");
 		return $js;
 	}
 
@@ -29,8 +28,9 @@ class heti extends Plugin {
 	}
 
 	function hook_format_article($html, $row) {
-		// parse HTML input
 		$doc = new DOMDocument();
+		$doc->preserveWhiteSpace = false;
+		$doc->formatOutput = true;
 		@$doc->loadHTML($html);
 
 		$script = $doc->createElement('script');
@@ -46,11 +46,11 @@ class heti extends Plugin {
 		
 		$heti_addon_script = $doc->createElement('script');
 		$heti_addon_script->setAttribute('type', 'text/javascript');
-		$heti_addon_script->nodeValue = 'const heti = new Heti(".heti"); heti.autoSpacing()';
+		$heti_addon_script->nodeValue = file_get_contents(dirname(__FILE__) . "/js/share-plugin.include.js");
 		$doc->getElementsByTagName('head')->item(0)->appendChild($heti_addon_script);
 
 		$heti_global_sytle = $doc->createElement('style');
-		$heti_global_sytle->nodeValue = '.heti { display: block; margin-left: auto; margin-right: auto; } body.ttrss_zoom div.post .content img, body.ttrss_zoom div.post .content video { max-width: 98% !important; height: auto !important;}';
+		$heti_global_sytle->nodeValue = file_get_contents(dirname(__FILE__) . "/css/share-plugin.include.css");
 		$doc->getElementsByTagName('head')->item(0)->appendChild($heti_global_sytle);
 
 		$xpath = new DOMXPath($doc);
@@ -89,8 +89,6 @@ class heti extends Plugin {
 			}
 		}
 
-		$doc->preserveWhiteSpace = false;
-		$doc->formatOutput = true;
 		return $doc->saveHTML();
 	}
 

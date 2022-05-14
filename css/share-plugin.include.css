@@ -1,0 +1,18 @@
+
+/*
+  TTRSS-Heti
+  share-plugin.include.js
+*/
+
+.heti {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+body.ttrss_zoom div.post .content img,
+body.ttrss_zoom div.post .content video {
+    max-width: 98% !important;
+    height: auto !important;
+}
+
