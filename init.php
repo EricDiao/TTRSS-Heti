@@ -66,7 +66,7 @@ class heti extends Plugin {
 
 		$entries = $xpath->query("/html/head/meta[@property='og:description']");
 		foreach ($entries as $entry) {
-			$entry->setAttribute('content', "Shared Article " . $entry->getAttribute('content') . " from Tiny Tiny RSS");
+			$entry->setAttribute('content', "Shared Article " . $entry->getAttribute('content') . " on Tiny Tiny RSS");
 		}
 
 		if (isset($row['feed_title'])) {
