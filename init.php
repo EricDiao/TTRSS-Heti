@@ -33,6 +33,17 @@ class heti extends Plugin {
 		$doc->formatOutput = true;
 		@$doc->loadHTML($html);
 
+		$og_tag_site_name = $doc->createElement('meta');
+		$og_tag_site_name->setAttribute('property', 'og:site_name');
+		$og_tag_site_name->setAttribute('content', "Tiny Tiny RSS - Shared Article");
+		$doc->getElementsByTagName('head')->item(0)->appendChild($og_tag_site_name);
+
+
+		$viewport = $doc->createElement('meta');
+		$viewport->setAttribute('name', 'viewport');
+		$viewport->setAttribute('content', 'width=device-width, initial-scale=1.0');
+		$doc->getElementsByTagName('head')->item(0)->appendChild($viewport);
+
 		$script = $doc->createElement('script');
 		$script->setAttribute('type', 'text/javascript');
 		$script->setAttribute('src', 'plugins.local/heti/heti/heti-addon.min.js');
@@ -59,14 +70,9 @@ class heti extends Plugin {
 			$entry->setAttribute('class', $entry->getAttribute('class') . ' heti');
 		}
 
-		$og_tag_site_name = $doc->createElement('meta');
-		$og_tag_site_name->setAttribute('property', 'og:site_name');
-		$og_tag_site_name->setAttribute('content', "Tiny Tiny RSS - Shared Article");
-		$doc->getElementsByTagName('head')->item(0)->appendChild($og_tag_site_name);
-
 		$entries = $xpath->query("/html/head/meta[@property='og:description']");
 		foreach ($entries as $entry) {
-			$entry->setAttribute('content', "Shared Article " . $entry->getAttribute('content') . " on Tiny Tiny RSS");
+			$entry->setAttribute('content', "Shared Article «" . $entry->getAttribute('content') . "» on Tiny Tiny RSS");
 		}
 
 		if (isset($row['feed_title'])) {
@@ -74,7 +80,7 @@ class heti extends Plugin {
 			foreach ($entries as $entry) {
 				$feed_title = $doc->createElement('div');
 				$feed_title->nodeValue = $row['feed_title'];
-				$feed_title->setAttribute('class', 'feed_title');
+				// $feed_title->setAttribute('class', 'feed_title');
 				$entry->insertBefore($feed_title, $entry->firstChild);
 			}
 
