@@ -7,7 +7,7 @@ require([
 ], function (dojo, ready, Heti) {
     console.log("Registering Heti...");
     ready(function () {
-        console.log("Heti is regisering...");
+        console.log("Heti is initializing...");
 
         // make sure PluginHost is properly initialized
         try {
@@ -106,6 +106,7 @@ require([
 
         console.log("Heti initalized.");
     });
+    console.log("Heti registered.");
 });
 
 // TTRSS-Heti Ends
