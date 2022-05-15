@@ -6,34 +6,55 @@ require([
     '/plugins.local/heti/heti/heti-addon.min.js'
 ], function (dojo, ready, Heti) {
     console.log("Registering Heti...");
-    var heti = null;
+    ready(function () {
+        console.log("Heti is regisering...");
 
-    try {
-        heti = new Heti(".heti");
-        console.log("Heti JS addon Initalized...")
-    } catch (e) {
-        console.log("Heti JS addon failed to load: ", e);
-    }
-
-    PluginHost.register(PluginHost.HOOK_ARTICLE_RENDERED, () => {
-        console.log("Heti is running... Triger: HOOK_ARTICLE_RENDERED");
-
-        contents = document.getElementsByClassName('content');
-        for (let i = 0; i < contents.length; i++) {
-            contents[i].classList.add('heti');
-            contents[i].style.cssText = "display: block; margin-left: auto; margin-right: auto;" + contents[i].style.cssText;
+        // make sure PluginHost is properly initialized
+        try {
+            PluginHost.HOOK_ARTICLE_RENDERED;
+        } catch (e) {
+            console.error("PluginHost not initialized: " + e);
+            return;
         }
 
-        notes = document.getElementsByClassName('article-note');
-        for (let i = 0; i < notes.length; i++) {
-            notes[i].classList.add('heti');
-            notes[i].style.cssText = "display: block; margin-left: auto; margin-right: auto;" + notes[i].style.cssText;
+        var heti = null;
+
+        try {
+            heti = new Heti(".heti");
+            console.log("Heti JS addon Initalized.")
+        } catch (e) {
+            console.warn("Heti JS addon failed to load: ", e);
         }
 
+        PluginHost.register(PluginHost.HOOK_ARTICLE_RENDERED, (entry) => {
+            console.log("Heti is running... Triger: HOOK_ARTICLE_RENDERED");
 
-        if (contents.length > 0) {
+            if (!entry) {
+                console.warn("Heti: expect article entry, but nothing passed. skipping...");
+                return;
+            }
+
+            article_contents = entry.querySelectorAll('.content');
+            for (let content of article_contents) {
+                content.classList.add('heti');
+                content.style.cssText = "display: block; margin-left: auto; margin-right: auto;" + content.style.cssText;
+            }
+
+            article_notes = entry.querySelectorAll('.article-note');
+            for (let note of article_notes) {
+                note.classList.add('heti');
+                note.style.cssText = "margin-left: auto; margin-right: auto;" + note.style.cssText;
+            }
+
+            article_titles = entry.querySelectorAll('.title');
+            for (let title of article_titles) {
+                title.classList.add('heti');
+                title.style.cssText = "display: block; margin-left: 2px; margin-right: 0px;" + title.style.cssText;
+            }
+
+
             if (heti) {
-                const rootList = document.querySelectorAll(".heti");
+                const rootList = entry.querySelectorAll(".heti");
 
                 for (let root of rootList) {
                     if (!root.classList.contains("ttrss-heti-js-done")) {
@@ -42,27 +63,37 @@ require([
                     }
                 }
             }
-        }
-    });
+        });
 
 
-    PluginHost.register(PluginHost.HOOK_ARTICLE_RENDERED_CDM, () => {
-        console.log("Heti is running... Triger: HOOK_ARTICLE_RENDERED_CDM");
+        PluginHost.register(PluginHost.HOOK_ARTICLE_RENDERED_CDM, (entry) => {
+            console.log("Heti is running... Triger: HOOK_ARTICLE_RENDERED_CDM");
 
-        contents = document.getElementsByClassName('content');
-        for (let i = 0; i < contents.length; i++) {
-            for (let j = 0; j < contents[i].children.length; j++) {
-                const child = contents[i].children[j];
-                if (child.classList.contains('article-note') || child.classList.contains('content-inner')) {
-                    child.classList.add('heti');
-                    child.style.cssText = "display: block; margin-left: auto; margin-right: auto;" + child.style.cssText;
-                }
+            if (!entry) {
+                console.warn("Heti: expect article entry, but nothing passed. skipping...");
+                return;
             }
-        }
 
-        if (contents.length > 0) {
+            article_notes = entry.querySelectorAll(".article-note");
+            for (let note of article_notes) {
+                note.classList.add('heti');
+                note.style.cssText = "margin-left: auto; margin-right: auto;" + note.style.cssText;
+            }
+
+            article_contents = entry.querySelectorAll(".content-inner");
+            for (let content of article_contents) {
+                content.classList.add('heti');
+                content.style.cssText = "display: block; margin-left: auto; margin-right: auto;" + content.style.cssText;
+            }
+
+            article_titles = entry.querySelectorAll(".title");
+            for (let title of article_titles) {
+                title.classList.add('heti');
+                title.style.cssText = "display: block; margin-left: 0px; margin-right: 0px;" + title.style.cssText;
+            }
+
             if (heti) {
-                const rootList = document.querySelectorAll(".heti");
+                const rootList = entry.querySelectorAll(".heti");
 
                 for (let root of rootList) {
                     if (!root.classList.contains("ttrss-heti-js-done")) {
@@ -71,10 +102,10 @@ require([
                     }
                 }
             }
-        }
-    });
+        });
 
-    console.log("Heti initalized.")
+        console.log("Heti initalized.");
+    });
 });
 
 // TTRSS-Heti Ends
