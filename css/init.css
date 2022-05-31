@@ -1,6 +1,6 @@
 /* TTRSS-Heti Starts */
 
-@import url('/plugins.local/heti/heti/heti.min.css');
+@import url('/plugins.local/heti/include/heti.min.css');
 
 .heti {
     display: block;

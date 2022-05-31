@@ -46,13 +46,13 @@ class heti extends Plugin {
 
 		$script = $doc->createElement('script');
 		$script->setAttribute('type', 'text/javascript');
-		$script->setAttribute('src', 'plugins.local/heti/heti/heti-addon.min.js');
+		$script->setAttribute('src', 'plugins.local/heti/include/heti-addon.min.js');
 		$doc->getElementsByTagName('head')->item(0)->appendChild($script);
 
 		$css_link = $doc->createElement('link');
 		$css_link->setAttribute('rel', 'stylesheet');
 		$css_link->setAttribute('type', 'text/css');
-		$css_link->setAttribute('href', 'plugins.local/heti/heti/heti.min.css');
+		$css_link->setAttribute('href', 'plugins.local/heti/include/heti.min.css');
 		$doc->getElementsByTagName('head')->item(0)->appendChild($css_link);
 		
 		$heti_addon_script = $doc->createElement('script');
@@ -61,6 +61,7 @@ class heti extends Plugin {
 		$doc->getElementsByTagName('head')->item(0)->appendChild($heti_addon_script);
 
 		$heti_global_sytle = $doc->createElement('style');
+		$heti_global_sytle->setAttribute('type', 'text/css');
 		$heti_global_sytle->nodeValue = file_get_contents(dirname(__FILE__) . "/css/share-plugin.include.css");
 		$doc->getElementsByTagName('head')->item(0)->appendChild($heti_global_sytle);
 

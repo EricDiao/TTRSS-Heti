@@ -3,7 +3,7 @@
 require([
     'dojo/_base/kernel',
     'dojo/ready',
-    '/plugins.local/heti/heti/heti-addon.min.js'
+    'plugins.local/heti/include/heti-addon.min.js'
 ], function (dojo, ready, Heti) {
     console.log("Registering Heti...");
     ready(function () {
