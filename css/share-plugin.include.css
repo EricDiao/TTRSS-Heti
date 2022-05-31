@@ -1,18 +1,26 @@
-
 /*
   TTRSS-Heti
   share-plugin.include.css
 */
 
 .heti {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 body.ttrss_zoom div.post .content img,
 body.ttrss_zoom div.post .content video {
-    max-width: 98% !important;
-    height: auto !important;
+  max-width: 98% !important;
+  height: auto !important;
 }
 
+body.ttrss_zoom div.post div.header .row h1 {
+  line-height: inherit !important;
+}
+
+div.entry-meta div {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}

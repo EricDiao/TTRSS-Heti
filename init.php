@@ -79,6 +79,7 @@ class heti extends Plugin {
 		if (isset($row['feed_title'])) {
 			$entries = $xpath->query("/html/body/div/div/div[1]/div[2]");
 			foreach ($entries as $entry) {
+				$entry->setAttribute('class', $entry->getAttribute('class') . ' entry-meta');
 				$feed_title = $doc->createElement('div');
 				$feed_title->nodeValue = $row['feed_title'];
 				// $feed_title->setAttribute('class', 'feed_title');
